@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    image: wwwescape/shopping-lists-server:v0.0.1
+    container_name: shopping-lists-server
+    ports:
+      - "6535:5000"
+    networks:
+      - shopping-lists_network
+  client:
+    build: ./client
+    image: wwwescape/shopping-lists-client:v0.0.1
+    container_name: shopping-lists-client
+    ports:
+      - "6536:80"   # Map container port 80 to host port 3000
+    networks:
+      - shopping-lists_network
+
+networks:
+  shopping-lists_network:
+    name: shopping-lists_default
+    external: true
